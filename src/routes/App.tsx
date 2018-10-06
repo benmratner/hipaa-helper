@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import documents from '#/documents'
-import { Table } from '#/components';
+import { RiskAssessmentTable, Table } from '#/components';
 import logo from '#/images/hippo-logo.png'
 
 import './App.css';
@@ -35,6 +35,11 @@ class App extends React.Component<any, State> {
 		// pdf.createPdf(docDefinition).download();
 	}
 
+	openRiskAssement = () => {
+		const doc = documents.riskAssement();
+		this.openPdf(doc);
+	}
+
 	openHardwareList = () => {
 
 		const hardwareList = documents.hardwareInventory([{
@@ -63,6 +68,8 @@ class App extends React.Component<any, State> {
 				<button onClick={this.openSecurityManagementPolicy}>Open Security Management Policy</button>
 				<Table />
 				<button onClick={this.openHardwareList}>Open Hardware Inventory</button>
+				<RiskAssessmentTable />
+				<button onClick={this.openRiskAssement}>Open Risk Assement</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
 						<iframe src={this.state.iframeSrc} className='pdf-preview'/>

@@ -140,7 +140,69 @@ const documents = {
 			},
 		],
 		styles
+	}),
+	riskAssement: () => ({
+		pageOrientation: 'landscape',
+		content: [
+			{
+				text: 'RISK ASSESSMENT',
+				style: 'header',
+			},
+			{
+				text: [
+					`\nPlace a check mark on the `,
+					{text: `Possible Threats`, bold: true},
+					` that apply to your practice. Score the `,
+					{text: `Likelihood`, bold: true},
+					{text: `Impact`, bold: true},
+					` on the following scale: Very low (1), Low (2), Moderate (3), High (4), Very high (5). Multiply `,
+					{text: `Likelihood`, bold: true},
+					` by `,
+					{text: `Impact`, bold: true},
+					` to determine a `,
+					{text: `Risk`, bold: true},
+					` score.\nRank your liabilities according to this score and develop protocols to protect against them accordingly. Make note of the appropriate actions taken from the list of possible actions. Add more possible threats as they are identified.`,
+					`\n\n\n\n`,
+				],
+				style: 'paragraph',
+				alignment: 'center',
+			},
+			{
+				table: {
+					headerRows: 1,
+					widths: ['*', '*', '*', '*', '*', '*'],
+					body: [
+						[{
+							text: 'POTENTIAL THREAT',
+							style: 'tableHeader'
+						},
+						{
+							text: 'Likelihood',
+							style: 'tableHeader'
+						},
+						{
+							text: 'Impact',
+							style: 'tableHeader'
+						},
+						{
+							text: 'Impact',
+							style: 'tableHeader'
+						},
+						{
+							text: 'Risk',
+							style: 'tableHeader'
+						},
+						{
+							text: 'Actions Taken/Date',
+							style: 'tableHeader'
+						}]
+					],
+				}
+			}
+		],
+		styles
 	})
+
 }
 
 export default documents;
