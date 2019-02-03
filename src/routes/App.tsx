@@ -2,20 +2,26 @@ import * as React from 'react';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import documents from '#/documents'
-import { RiskAssessmentTable, Table } from '#/components';
+import { PracticeNameInput, RiskAssessmentTable, Table } from '#/components';
 import logo from '#/images/hippo-logo.png'
 
 import './App.css';
+import { connect } from 'react-redux';
+import { RiskAssessmentRow } from '#/types';
 
 const pdf = pdfMake;
 pdf.vfs = pdfFonts.pdfMake.vfs;
+
+interface Props {
+	riskAssessment: RiskAssessmentRow[]
+}
 
 interface State {
 	iframeSrc: string,
 	practiceName: string,
 }
 
-class App extends React.Component<any, State> {
+class App extends React.Component<Props, State> {
 
 	state = {
 		iframeSrc: '',
@@ -36,7 +42,7 @@ class App extends React.Component<any, State> {
 	}
 
 	openRiskAssement = () => {
-		const doc = documents.riskAssement();
+		const doc = documents.riskAssessment(this.props.riskAssessment);
 		this.openPdf(doc);
 	}
 
@@ -64,7 +70,7 @@ class App extends React.Component<any, State> {
 					<img src={logo} className="App-logo" alt="logo" />
 					<h1 className="App-title">Welcome to HIPAA Helper</h1>
 				</header>
-				Practice Name: <input onChange={e => this.setState({practiceName: e.target.value})} value={this.state.practiceName} />
+				<PracticeNameInput />
 				<button onClick={this.openSecurityManagementPolicy}>Open Security Management Policy</button>
 				<Table />
 				<button onClick={this.openHardwareList}>Open Hardware Inventory</button>
@@ -80,4 +86,8 @@ class App extends React.Component<any, State> {
 	}
 }
 
-export default App;
+const MapStateToProps = (state) => ({
+	riskAssessment: state.riskAssessment
+})
+
+export default connect(MapStateToProps)(App)

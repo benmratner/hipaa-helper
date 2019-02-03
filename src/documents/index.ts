@@ -1,3 +1,5 @@
+import { RiskAssessmentRow, SoftwareInventoryRow } from '#/types';
+
 interface hardwareInventoryItem {
 	name: string,
 	location: string,
@@ -69,31 +71,31 @@ const tableHelpers = {
 			const row = [
 				{
 					text: item.name,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: item.location,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: item.type,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: `${item.os}, ${item.ram}, ${item.cpu}, ${item.storage}`,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: item.serialNo,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: item.purchasedDate,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 				{
 					text: item.cost,
-					style: 'tableitem',
+					style: 'tableItem',
 				},
 			]
 			table.body.push(row);
@@ -101,6 +103,9 @@ const tableHelpers = {
 		console.log(table)
 
 		return table;
+	},
+	riskAssessment: (items: RiskAssessmentRow[]) => {
+
 	}
 }
 
@@ -141,11 +146,24 @@ const documents = {
 		],
 		styles
 	}),
-	riskAssement: () => ({
+	softwareInventory: (items: SoftwareInventoryRow) => ({
 		pageOrientation: 'landscape',
 		content: [
 			{
 				text: 'RISK ASSESSMENT',
+				style: 'header',
+			},
+			{
+
+			}
+		],
+		styles
+	}),
+	riskAssessment: (items: RiskAssessmentRow[]) => ({
+		pageOrientation: 'landscape',
+		content: [
+			{
+				text: 'COMPUTER SOFTWARE INVENTORY',
 				style: 'header',
 			},
 			{
@@ -170,7 +188,7 @@ const documents = {
 			{
 				table: {
 					headerRows: 1,
-					widths: ['*', '*', '*', '*', '*', '*'],
+					widths: ['*', 'auto', 'auto', 'auto', '*'],
 					body: [
 						[{
 							text: 'POTENTIAL THREAT',
@@ -185,19 +203,86 @@ const documents = {
 							style: 'tableHeader'
 						},
 						{
-							text: 'Impact',
-							style: 'tableHeader'
-						},
-						{
 							text: 'Risk',
 							style: 'tableHeader'
 						},
 						{
 							text: 'Actions Taken/Date',
 							style: 'tableHeader'
-						}]
+						}],
+						...items
+						.slice()
+						.sort((a, b) => b.risk - a.risk)
+						.map(item => 
+							[{
+								text: item.threatName,
+								style: 'tableItem'
+							},
+							{
+								text: item.likelihood,
+								style: 'tableItem'
+							},
+							{
+								text: item.impact,
+								style: 'tableItem'
+							},
+							{
+								text: item.risk,
+								style: 'tableItem'
+							},
+							{
+								text: item.actionsTaken.reduce((actionString, action, i) => {
+									if (action.action){
+										console.log(action)
+										if (i < 0){
+											return `${actionString}, ${action.action}: ${action.date}`
+										}
+										return `${action.action}: ${action.date}`
+									}
+									return ''
+								}, ''),
+								style: 'tableItem'
+							}
+						]
+						)
 					],
 				}
+			},
+			{
+				text: 'Actions Taken',
+				style: 'header',
+			},
+			{
+				columns: [
+					{
+						ol: [
+							'Unique User ID',
+							'Emergency Access',
+							'Automatic Logoff',
+							'Authentication',
+							'Encryption'
+						],
+						width: '33%'
+					}, {
+						start: 6,
+						ol: [
+							'Emergency Operation Plan',
+							'Access Controls',
+							'Audit Controls',
+							'Data Integrity',
+							'Data Backup'
+						],
+						width: '33%'
+					}, {
+						start: 11,
+						ol: [
+							'Disaster Recovery Plan',
+							'Alarm System',
+							'Video Cameras',
+						],
+						width: '33%'
+					}
+				]
 			}
 		],
 		styles
