@@ -17,3 +17,16 @@ export type SoftwareInventoryRow = {
     dateUpdated: Date,
     cost: number
 }
+
+export type HardwareInventoryItem = {
+	name: string,
+	location: string,
+	type: string,
+	os: string,
+	ram: string,
+	cpu: string,
+	storage: string,
+	serialNo: string,
+	datePurchased: string,
+	cost: number,
+}
