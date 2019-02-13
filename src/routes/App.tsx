@@ -71,6 +71,45 @@ class App extends React.Component<Props, State> {
 		this.openPdf(hardwareList)
 	}
 
+	openBusinessAssociateAgreement = () => {
+		const address1 = {
+			addressLine1: '405 Manila Ave',
+			addressLine2: 'Apt 2',
+			city: 'Jersey City',
+			state: 'NJ',
+			zip: '07302'
+		}
+		const address2 = {
+			addressLine1: '7 Morgan Way',
+			city: 'Scotch Plains',
+			state: 'NJ',
+			zip: '07076'
+		}
+		const address3 = {
+			addressLine1: '62 Jefferson Drive',
+			city: 'Miami',
+			state: 'FL',
+			zip: '33101'
+		}
+		const agreement = documents.BusinessAssociateAgreement({
+			doctorName: 'Ben Ratner',
+			doctorBusinessAddress: address1,
+			associateName: 'Craig Ratner',
+			associateBusinessAddress: address2,
+			associateServicesType: 'Moral Support',
+			associateServicesDescription: 'Telling the doctor that he is really great',
+			insuranceAmount: 2000,
+			doctorMailingAddress: address1,
+			associateMailingAddress: address3,
+			agreementDay: 11,
+			agreementMonth: 'June',
+			agreementYear: 2020,
+			doctorTitle: 'Doctor of Espionage Studies',
+			associateTitle: 'Doctor of Medical Dentistry',
+		})
+		this.openPdf(agreement)
+	}
+
 	render() {
 		return (
 
@@ -90,6 +129,10 @@ class App extends React.Component<Props, State> {
 				<button onClick={() => this.openDocument('DataControlPolicy', 'Practice Name')}>Open Data Control Policy</button>
 				<button onClick={() => this.openDocument('BackUpPlan', 'Practice Name')}>Open Data Back-up Plan</button>
 				<button onClick={() => this.openDocument('InternetAccessPolicy', 'Practice Name')}>Open Internet Access Policy</button>
+				<button onClick={() => this.openDocument('EncryptionPolicy', 'Practice Name')}>Open Encryption Policy</button>
+				<button onClick={() => this.openDocument('PatientAuthorization', 'Practice Name')}>Open Patient Authorization</button>
+				<button onClick={() => this.openDocument('SecurityIncidentPolicy', 'Practice Name')}>Open Security Incident Policy</button>
+				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business AssociateAgreement</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
 						<iframe src={this.state.iframeSrc} className='pdf-preview'/>
