@@ -20,7 +20,9 @@ const SecurityManagementPolicy = (practiceName: string, dateAdopted: string) => 
                 'Date Policy Adopted: ',
                 {text: dateAdopted, bold: true}
             ]
-        }
+        },
+        `\n\n\n\n`,
+        `Relevant Forms: HARDWARE AND SOFTWARE INVENTORIES, RISK ASSESSMENT`
     ],
     styles
 })

@@ -1,12 +1,6 @@
 import styles from './styles'
-
-type Address = {
-    addressLine1: string,
-    addressLine2?: string,
-    city: string,
-    state: string,
-    zip: string
-}
+import { Address } from '#/types'
+import { addressToArray, addressToString } from '#/utils'
 
 export type Args = {
     doctorName: string,
@@ -23,19 +17,6 @@ export type Args = {
     agreementYear: number,
     doctorTitle: string,
     associateTitle: string
-}
-
-function addressToString(address: Address): string {
-    return `${address.addressLine1}, ${address.addressLine2 ? `${address.addressLine2}, ` : '' }${address.city}, ${address.state} ${address.zip}`
-}
-
-function addressToArray(address: Address) {
-    const arr = [address.addressLine1]
-    if (address.addressLine2){
-        arr.push(address.addressLine2)
-    }
-    arr.push(`${address.city}, ${address.state} ${address.zip}`)
-    return arr
 }
 
 const BusinessAssociateAgreement = (args: Args) => ({

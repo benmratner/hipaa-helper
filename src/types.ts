@@ -30,3 +30,24 @@ export type HardwareInventoryItem = {
 	datePurchased: string,
 	cost: number,
 }
+
+export type Address = {
+    addressLine1: string,
+    addressLine2?: string,
+    city: string,
+    state: string,
+    zip: string
+}
+
+export type TeamMemberContactInfo = {
+	name: string,
+	address: Address,
+	homePhone?: string,
+	cellPhone?: string,
+	spouse?: string
+}
+
+export type EmergencyContact = {
+	name: string,
+	phone: string
+}

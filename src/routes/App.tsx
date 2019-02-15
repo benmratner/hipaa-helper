@@ -110,6 +110,58 @@ class App extends React.Component<Props, State> {
 		this.openPdf(agreement)
 	}
 
+	openTeamContactInfo = () => {
+		const team = [
+			{
+				name: 'Ben Ratner',
+				address: {
+					addressLine1: '405 Manila Ave',
+					addressLine2: 'Apt 2',
+					city: 'Jersey City',
+					state: 'NJ',
+					zip: '07302'
+				},
+				cellPhone: '9084771654' 
+
+			},
+			{
+				name: 'Craig Ratner',
+				address: {
+					addressLine1: '7 Morgan Way',
+					city: 'Scotch Plains',
+					state: 'NJ',
+					zip: '07076'
+				},
+				homePhone: '9088895244',
+				cellPhone: '9083381644',
+				spouse: 'Amy Ratner'
+			}
+		]
+
+		const teamContactInfo = documents.TeamContactInfo(team)
+		this.openPdf(teamContactInfo)
+	}
+
+	openEmergencyContacts = () => {
+		const contacts = [
+			{
+				name: 'Local Police Department',
+				phone: '8008764889'
+			},
+			{
+				name: 'Local Fire Department',
+				phone: '7865622363'
+			},
+			{
+				name: 'NYS Dental Association',
+				phone: '8002552100'
+			}
+		]
+
+		const emergencyContacts = documents.EmergencyContactList(contacts)
+		this.openPdf(emergencyContacts)
+	}
+
 	render() {
 		return (
 
@@ -132,7 +184,10 @@ class App extends React.Component<Props, State> {
 				<button onClick={() => this.openDocument('EncryptionPolicy', 'Practice Name')}>Open Encryption Policy</button>
 				<button onClick={() => this.openDocument('PatientAuthorization', 'Practice Name')}>Open Patient Authorization</button>
 				<button onClick={() => this.openDocument('SecurityIncidentPolicy', 'Practice Name')}>Open Security Incident Policy</button>
-				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business AssociateAgreement</button>
+				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business Associate Agreement</button>
+				<button onClick={() => this.openDocument('SecurityEvaluation', 'Practice Name')}>Open Security Evaluation</button>
+				<button onClick={() => this.openTeamContactInfo()}>Open Team Contact Info</button>
+				<button onClick={() => this.openEmergencyContacts()}>Open Emergency Contact List</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
 						<iframe src={this.state.iframeSrc} className='pdf-preview'/>

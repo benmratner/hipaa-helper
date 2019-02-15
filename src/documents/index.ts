@@ -20,6 +20,9 @@ import HarmMitigationPolicy from './HarmMitigationPolicy'
 import BusinessAssociateAgreement from './BusinessAssociateAgreement'
 import BusinessAssociatePolicy from './BusinessAssociatePolicy'
 import PrivacyViolationSanctions from './PrivacyViolationSanctions'
+import SecurityEvaluation from './SecurityEvaluation'
+import TeamContactInfo from './TeamContactInfo'
+import EmergencyContactList from './EmergencyContactList'
 
 const documents = {
 	SecurityManagementPolicy,
@@ -44,6 +47,9 @@ const documents = {
 	BusinessAssociateAgreement,
 	BusinessAssociatePolicy,
 	PrivacyViolationSanctions,
+	SecurityEvaluation,
+	TeamContactInfo,
+	EmergencyContactList
 }
 
 export default documents;
