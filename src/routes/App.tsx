@@ -1,20 +1,22 @@
-import * as React from 'react';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as React from 'react'
+import * as pdfMake from 'pdfmake/build/pdfmake'
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 import documents from '#/documents'
-import { PracticeNameInput, RiskAssessmentTable, TeamContactInfoTable } from '#/components';
+import { PracticeNameInput, RiskAssessmentTable } from '#/components'
+import { HardwareInventoryTable, TeamContactInfoTable } from '#/pages'
 import logo from '#/images/hippo-logo.png'
 
-import './App.css';
-import { connect } from 'react-redux';
-import { RiskAssessmentRow, TableRows, TeamMemberContactInfo } from '#/types';
+import './App.css'
+import { connect } from 'react-redux'
+import { HardwareInventoryItem,  RiskAssessmentRow, TableRows, TeamMemberContactInfo } from '#/types'
 
-const pdf = pdfMake;
-pdf.vfs = pdfFonts.pdfMake.vfs;
+const pdf = pdfMake
+pdf.vfs = pdfFonts.pdfMake.vfs
 
 interface Props {
 	riskAssessment: RiskAssessmentRow[],
 	teamContactInfo: TableRows<TeamMemberContactInfo>,
+	hardwareInventory: TableRows<HardwareInventoryItem>,
 	practiceName: string
 }
 
@@ -33,42 +35,44 @@ class App extends React.Component<Props, State> {
 	openPdf = (generator: any) => {
 		const pdfDocGenerator = pdfMake.createPdf(generator);
 		(pdfDocGenerator as any).getDataUrl((dataUrl: string) => {
-			this.setState({iframeSrc: dataUrl});
-		});
+			this.setState({iframeSrc: dataUrl})
+		})
 	}
 
 	openSecurityManagementPolicy = () => {
-		const securityManagementPolicy = documents.SecurityManagementPolicy(this.state.practiceName, 'September 29, 2018');
+		const securityManagementPolicy = documents.SecurityManagementPolicy(this.state.practiceName, 'September 29, 2018')
 		this.openPdf(securityManagementPolicy)
 		// pdf.createPdf(docDefinition).download();
 	}
 
 	openRiskAssement = () => {
-		const doc = documents.RiskAssessment(this.props.riskAssessment);
-		this.openPdf(doc);
+		const doc = documents.RiskAssessment(this.props.riskAssessment)
+		this.openPdf(doc)
 	}
 
 	openDocument = (docName: string, ...args: any) => {
 		if (documents[docName]){
-			const doc = documents[docName](...args);
-			this.openPdf(doc);
+			const doc = documents[docName](...args)
+			this.openPdf(doc)
 		}
 	}
 
 	openHardwareList = () => {
 
-		const hardwareList = documents.HardwareInventory([{
-			name: 'Computer',
-			location: 'desk',
-			type: 'laptop',
-			os: 'Windows 10 64-bit',
-			ram: '16 GB',
-			cpu: 'Intel i7-6567U 3.3 Ghz',
-			storage: '512 GB',
-			serialNo: '123456',
-			datePurchased: '2017-03-01',
-			cost: 1099
-		}]);
+		// const hardwareList = documents.HardwareInventory([{
+		// 	name: 'Computer',
+		// 	location: 'desk',
+		// 	type: 'laptop',
+		// 	os: 'Windows 10 64-bit',
+		// 	ram: '16 GB',
+		// 	cpu: 'Intel i7-6567U 3.3 Ghz',
+		// 	storage: '512 GB',
+		// 	serialNo: '123456',
+		// 	datePurchased: '2017-03-01',
+		// 	cost: 1099
+		// }]);
+		const hardwareInventory = Object.values(this.props.hardwareInventory)
+		const hardwareList = documents.HardwareInventory(hardwareInventory)
 		this.openPdf(hardwareList)
 	}
 
@@ -122,7 +126,7 @@ class App extends React.Component<Props, State> {
 		// 			state: 'NJ',
 		// 			zip: '07302'
 		// 		},
-		// 		cellPhone: '9084771654' 
+		// 		cellPhone: '9084771654'
 
 		// 	},
 		// 	{
@@ -174,6 +178,8 @@ class App extends React.Component<Props, State> {
 				<PracticeNameInput />
 				<button onClick={() => this.openDocument('SecurityManagementPolicy', this.props.practiceName, '2019-02-02')}>Open Security Management Policy</button>
 				<TeamContactInfoTable />
+				<button onClick={() => this.openTeamContactInfoTable()}>Open Team Contact Info</button>
+				<HardwareInventoryTable />
 				<button onClick={this.openHardwareList}>Open Hardware Inventory</button>
 				<RiskAssessmentTable />
 				<button onClick={this.openRiskAssement}>Open Risk Assement</button>
@@ -187,7 +193,6 @@ class App extends React.Component<Props, State> {
 				<button onClick={() => this.openDocument('SecurityIncidentPolicy', 'Practice Name')}>Open Security Incident Policy</button>
 				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business Associate Agreement</button>
 				<button onClick={() => this.openDocument('SecurityEvaluation', 'Practice Name')}>Open Security Evaluation</button>
-				<button onClick={() => this.openTeamContactInfoTable()}>Open Team Contact Info</button>
 				<button onClick={() => this.openEmergencyContacts()}>Open Emergency Contact List</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
@@ -195,14 +200,15 @@ class App extends React.Component<Props, State> {
 					</div>
 				}
 			</div>
-		);
+		)
 	}
 }
 
 const MapStateToProps = (state) => ({
 	riskAssessment: state.riskAssessment,
 	practiceName: state.practiceName,
-	teamContactInfo: state.teamMemberContactInfo
+	teamContactInfo: state.teamMemberContactInfo,
+	hardwareInventory: state.hardwareInventory
 })
 
 export default connect(MapStateToProps)(App)

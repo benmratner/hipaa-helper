@@ -1,8 +1,8 @@
 import styles from './styles'
-import { HardwareInventoryItem } from '#/types';
+import { HardwareInventoryItem, TableRow } from '#/types';
 
 
-const HardwareInventory = (items: HardwareInventoryItem[]) => ({
+const HardwareInventory = (items: TableRow<HardwareInventoryItem>[]) => ({
     content: [
         {
             text: 'COMPUTER HARDWARE INVENTORY\n',
@@ -44,25 +44,28 @@ const HardwareInventory = (items: HardwareInventoryItem[]) => ({
                     ],
                     ...items.map(item => [
                         {
-                            text: item.name,
+                            text: item.values.name,
                             style: 'tableItem'
                         }, {
-                            text: item.location,
+                            text: item.values.location,
                             style: 'tableItem'
                         }, {
-                            text: item.type,
+                            text: item.values.type,
+                            style: 'tableItem'
+                        }, 
+                        // {
+                        //     text: `${item.values.os}, ${item.values.storage}, ${item.values.ram}, ${item.values.cpu}`,
+                        //     style: 'tableItem'
+                        // }, 
+                        ``,
+                        {
+                            text: item.values.serialNo,
                             style: 'tableItem'
                         }, {
-                            text: `${item.os}, ${item.storage}, ${item.ram}, ${item.cpu}`,
+                            text: item.values.datePurchased,
                             style: 'tableItem'
                         }, {
-                            text: item.serialNo,
-                            style: 'tableItem'
-                        }, {
-                            text: item.datePurchased,
-                            style: 'tableItem'
-                        }, {
-                            text: `$${item.cost.toFixed(2)}`,
+                            text: `$${parseFloat(item.values.cost).toFixed(2)}`,
                             style: 'tableItem'
                         }
                     ])

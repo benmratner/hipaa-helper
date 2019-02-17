@@ -22,13 +22,15 @@ export type HardwareInventoryItem = {
 	name: string,
 	location: string,
 	type: string,
-	os: string,
-	ram: string,
-	cpu: string,
-	storage: string,
+	hardwareDetails: {
+		os: string,
+		ram: string,
+		cpu: string,
+		storage: string,
+	}
 	serialNo: string,
 	datePurchased: string,
-	cost: number,
+	cost: string,
 }
 
 export type Address = {

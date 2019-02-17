@@ -1,21 +1,19 @@
 import { Address } from './types';
 
 export function addressToString(address: Address): string {
-    return `${address.addressLine1}, ${address.addressLine2 ? `${address.addressLine2}, ` : '' }${address.city}, ${address.state} ${address.zip}`
+    if (address.addressLine1) {
+        return `${address.addressLine1}, ${address.addressLine2 ? `${address.addressLine2}, ` : '' }${address.city}, ${address.state} ${address.zip}`
+    }
+    return ''
 }
 
 export function addressToArray(address: Address) {
-    if (address.addressLine1) {
-
-        const arr = [address.addressLine1]
-        if (address.addressLine2){
-            arr.push(address.addressLine2)
-        }
-        arr.push(`${address.city}, ${address.state} ${address.zip}`)
-        return arr
-    } else {
-        return ''
+    const arr = [address.addressLine1]
+    if (address.addressLine2){
+        arr.push(address.addressLine2)
     }
+    arr.push(`${address.city}, ${address.state} ${address.zip}`)
+    return arr
 }
 
 export function formatPhoneNumber(number: string) {
