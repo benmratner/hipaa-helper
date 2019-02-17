@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import documents from '#/documents'
-import { PracticeNameInput, RiskAssessmentTable, Table } from '#/components';
+import { PracticeNameInput, RiskAssessmentTable, TeamContactInfo } from '#/components';
 import logo from '#/images/hippo-logo.png'
 
 import './App.css';
@@ -172,7 +172,7 @@ class App extends React.Component<Props, State> {
 				</header>
 				<PracticeNameInput />
 				<button onClick={() => this.openDocument('SecurityManagementPolicy', this.props.practiceName, '2019-02-02')}>Open Security Management Policy</button>
-				<Table />
+				<TeamContactInfo />
 				<button onClick={this.openHardwareList}>Open Hardware Inventory</button>
 				<RiskAssessmentTable />
 				<button onClick={this.openRiskAssement}>Open Risk Assement</button>

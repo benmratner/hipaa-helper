@@ -51,3 +51,14 @@ export type EmergencyContact = {
 	name: string,
 	phone: string
 }
+
+export type TableRow = {
+	values: {
+		[id: string]: string,
+	},
+	createdAt: Date
+}
+
+export type TableRows = {
+	[id: string]: TableRow
+}
