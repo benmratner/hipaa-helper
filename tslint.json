@@ -12,7 +12,8 @@
 		"member-access": [true, "no-public"],
 		"no-console": false,
 		"jsx-no-lambda": false,
-		"jsx-boolean-value": false
+		"jsx-boolean-value": false,
+		"semicolon": [true, "never"]
 	},
 	"linterOptions": {
 		"exclude": [
