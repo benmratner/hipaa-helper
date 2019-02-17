@@ -1,12 +1,14 @@
-import { RiskAssessmentRow } from '#/types'
+import { RiskAssessmentRow, TableRow, TableRows, TeamMemberContactInfo } from '#/types'
 import { RiskAssessment as RiskAssessmentInit } from '#/initialStates'
 
 type PageActions = 
 | UpdatePracticeName
 | UpdateRiskAssessment
+| UpdateTeamMemberContactInfoRow
 
 const UPDATE_PRACTICE_NAME = 'UPDATE_PRACTICE_NAME'
 const UPDATE_RISK_ASSESSMENT = 'UPDATE_RISK_ASSESSMENT'
+const UPDATE_TEAM_MEMBER_CONTACT_INFO_ROW = 'UPDATE_TEAM_MEMBER_CONTACT_INFO_ROW'
 
 
 type UpdatePracticeName = {
@@ -19,6 +21,12 @@ type UpdateRiskAssessment = {
     table: RiskAssessmentRow[]
 }
 
+type UpdateTeamMemberContactInfoRow = {
+    type: 'UPDATE_TEAM_MEMBER_CONTACT_INFO_ROW',
+    row: TableRow<TeamMemberContactInfo>,
+    rowId: string
+}
+
 export const updatePracticeName = (name: string): UpdatePracticeName => ({
     type: UPDATE_PRACTICE_NAME,
     name
@@ -27,6 +35,12 @@ export const updatePracticeName = (name: string): UpdatePracticeName => ({
 export const updateRiskAssessment = (table: RiskAssessmentRow[]) => ({
     type: UPDATE_RISK_ASSESSMENT,
     table
+})
+
+export const updateTeamMemberContactInfoRow = (row: TableRow<TeamMemberContactInfo>, rowId: string) => ({
+    type: UPDATE_TEAM_MEMBER_CONTACT_INFO_ROW,
+    row,
+    rowId
 })
 
 export const reducers = {
@@ -44,6 +58,18 @@ export const reducers = {
                 return action.table
             default: 
                 return state
+        }
+    },
+    teamMemberContactInfo: (state: TableRows<TeamMemberContactInfo> = {}, action: PageActions): TableRows<TeamMemberContactInfo> => {
+        switch (action.type) {
+            case UPDATE_TEAM_MEMBER_CONTACT_INFO_ROW:
+                return {
+                    ...state,
+                    [action.rowId]: action.row
+                }
+            default: 
+                return state
+
         }
     }
 }

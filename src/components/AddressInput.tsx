@@ -38,33 +38,38 @@ class AddressInput extends React.Component<Props, State>{
     render() {
 
         return (
-            <>
+            <div className={'d-flex flex-column'}>
+                Line 1:
                 <input 
                     onChange={e => this.editField(e)} 
                     name={'addressLine1'} 
                     value={this.state.addressLine1}
                 />
+                Line 2:
                 <input 
                     onChange={e => this.editField(e)} 
                     name={'addressLine2'} 
                     value={this.state.addressLine2}
                 />
+                City:
                 <input 
                     onChange={e => this.editField(e)} 
                     name={'city'} 
                     value={this.state.city}
                 />
+                State:
                 <input 
                     onChange={e => this.editField(e)} 
                     name={'state'} 
                     value={this.state.state}
                 />
+                Zip Code:
                 <input 
                     onChange={e => this.editField(e)} 
                     name={'zip'} 
                     value={this.state.zip}
                 />
-            </>   
+            </div>   
         )
     }
 } 

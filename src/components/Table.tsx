@@ -1,18 +1,21 @@
 import * as React from 'react'
 import { Table as ReactTable } from 'reactstrap'
 import { generateUID } from '#/utils'
-import { TableRow, TableRows } from '#/types'
+import { TableRows } from '#/types'
 
 
 type Props = {
 	columns: {
 		displayName: string,
+		key: string,
 		input: any
-	}[]
+	}[],
+	saveRow: Function,
+	rows?: TableRows<any>
 }
 
 type State = {
-	rows: TableRows
+	rows: TableRows<any>
 }
 
 class Table extends React.Component<Props, State> {
@@ -22,20 +25,26 @@ class Table extends React.Component<Props, State> {
 	}
 
 	componentDidMount () {
-		this.setState({
-			rows: {
-				0: this.getEmptyRow()
-			}
-		})
+		if (this.props.rows && Object.values(this.props.rows).length > 0) {
+			this.setState({
+				rows: this.props.rows
+			})
+		} else {
+			this.setState({
+				rows: {
+					0: this.getEmptyRow()
+				}
+			})
+		}
 	}
 
-	getEmptyRow = (): TableRow => {
-		let row: TableRow = {
+	getEmptyRow = () => {
+		let row = {
 			values: {},
 			createdAt: new Date()
 		}
 		this.props.columns.forEach((col, i) => {
-			row.values[col.displayName] = ''
+			row.values[col.key] = ''
 		})
 		return row
 	}
@@ -68,7 +77,7 @@ class Table extends React.Component<Props, State> {
 					}
 				}
 			}
-		}, () => console.log(this.state.rows))
+		})
 	}
 
 	render() {
@@ -80,19 +89,21 @@ class Table extends React.Component<Props, State> {
 							<td key={i}>{col.displayName}</td>
 						))}
 						<td />
+						<td />
 					</tr>
 				</thead>
 				<tbody>
 					{Object.keys(this.state.rows).map((rowKey, i) => (
 						<tr key={rowKey}>
 							{this.props.columns.map(col => (
-								<td>{col.input(val => this.editRow(rowKey, col.displayName, val))}</td>
+								<td>{col.input(val => this.editRow(rowKey, col.key, val))}</td>
 							))}
 							{
 								i === Object.keys(this.state.rows).length - 1
 									? <td onClick={this.addRow}>Add Row</td>
 									: <td onClick={() => this.deleteRow(rowKey)}>Delete Row</td>
-							}	
+							}
+							<td><a onClick={() => this.props.saveRow(this.state.rows[rowKey], rowKey)}>Save</a></td>	
 						</tr>
 					))}
 				</tbody>

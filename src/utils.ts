@@ -5,12 +5,17 @@ export function addressToString(address: Address): string {
 }
 
 export function addressToArray(address: Address) {
-    const arr = [address.addressLine1]
-    if (address.addressLine2){
-        arr.push(address.addressLine2)
+    if (address.addressLine1) {
+
+        const arr = [address.addressLine1]
+        if (address.addressLine2){
+            arr.push(address.addressLine2)
+        }
+        arr.push(`${address.city}, ${address.state} ${address.zip}`)
+        return arr
+    } else {
+        return ''
     }
-    arr.push(`${address.city}, ${address.state} ${address.zip}`)
-    return arr
 }
 
 export function formatPhoneNumber(number: string) {

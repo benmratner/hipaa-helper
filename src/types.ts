@@ -52,13 +52,11 @@ export type EmergencyContact = {
 	phone: string
 }
 
-export type TableRow = {
-	values: {
-		[id: string]: string,
-	},
+export interface TableRow<T> {
+	values: T,
 	createdAt: Date
 }
 
-export type TableRows = {
-	[id: string]: TableRow
+export interface TableRows<T> {
+	[id: string]: TableRow<T>
 }

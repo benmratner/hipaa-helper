@@ -1,8 +1,8 @@
 import styles from './styles'
-import { TeamMemberContactInfo } from '#/types';
+import { TableRow, TeamMemberContactInfo } from '#/types';
 import { addressToString, formatPhoneNumber } from '#/utils';
 
-const TeamContactInfo = (team: TeamMemberContactInfo[]) => ({
+const TeamContactInfo = (team: TableRow<TeamMemberContactInfo>[]) => ({
     content: [
         {
             text: 'TEAM CONTACT INFORMATION LIST',
@@ -38,23 +38,23 @@ const TeamContactInfo = (team: TeamMemberContactInfo[]) => ({
                     ],
                     ...team.map(teamMember => [
                         {
-                            text: teamMember.name,
+                            text: teamMember.values.name,
                             style: 'tableItem'
                         },
                         {
-                            text: addressToString(teamMember.address),
+                            text: addressToString(teamMember.values.address),
                             style: 'tableItem'
                         },
                         {
-                            text: teamMember.homePhone ? formatPhoneNumber(teamMember.homePhone) : '',
+                            text: teamMember.values.homePhone ? formatPhoneNumber(teamMember.values.homePhone) : '',
                             style: 'tableItem'
                         },
                         {
-                            text: teamMember.cellPhone ? formatPhoneNumber(teamMember.cellPhone) : '',
+                            text: teamMember.values.cellPhone ? formatPhoneNumber(teamMember.values.cellPhone) : '',
                             style: 'tableItem'
                         },
                         {
-                            text: teamMember.spouse,
+                            text: teamMember.values.spouse,
                             style: 'tableItem'
                         }
                     ])

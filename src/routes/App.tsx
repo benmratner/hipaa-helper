@@ -2,18 +2,19 @@ import * as React from 'react';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import documents from '#/documents'
-import { PracticeNameInput, RiskAssessmentTable, TeamContactInfo } from '#/components';
+import { PracticeNameInput, RiskAssessmentTable, TeamContactInfoTable } from '#/components';
 import logo from '#/images/hippo-logo.png'
 
 import './App.css';
 import { connect } from 'react-redux';
-import { RiskAssessmentRow } from '#/types';
+import { RiskAssessmentRow, TableRows, TeamMemberContactInfo } from '#/types';
 
 const pdf = pdfMake;
 pdf.vfs = pdfFonts.pdfMake.vfs;
 
 interface Props {
 	riskAssessment: RiskAssessmentRow[],
+	teamContactInfo: TableRows<TeamMemberContactInfo>,
 	practiceName: string
 }
 
@@ -110,34 +111,34 @@ class App extends React.Component<Props, State> {
 		this.openPdf(agreement)
 	}
 
-	openTeamContactInfo = () => {
-		const team = [
-			{
-				name: 'Ben Ratner',
-				address: {
-					addressLine1: '405 Manila Ave',
-					addressLine2: 'Apt 2',
-					city: 'Jersey City',
-					state: 'NJ',
-					zip: '07302'
-				},
-				cellPhone: '9084771654' 
+	openTeamContactInfoTable = () => {
+		// const team = [
+		// 	{
+		// 		name: 'Ben Ratner',
+		// 		address: {
+		// 			addressLine1: '405 Manila Ave',
+		// 			addressLine2: 'Apt 2',
+		// 			city: 'Jersey City',
+		// 			state: 'NJ',
+		// 			zip: '07302'
+		// 		},
+		// 		cellPhone: '9084771654' 
 
-			},
-			{
-				name: 'Craig Ratner',
-				address: {
-					addressLine1: '7 Morgan Way',
-					city: 'Scotch Plains',
-					state: 'NJ',
-					zip: '07076'
-				},
-				homePhone: '9088895244',
-				cellPhone: '9083381644',
-				spouse: 'Amy Ratner'
-			}
-		]
-
+		// 	},
+		// 	{
+		// 		name: 'Craig Ratner',
+		// 		address: {
+		// 			addressLine1: '7 Morgan Way',
+		// 			city: 'Scotch Plains',
+		// 			state: 'NJ',
+		// 			zip: '07076'
+		// 		},
+		// 		homePhone: '9088895244',
+		// 		cellPhone: '9083381644',
+		// 		spouse: 'Amy Ratner'
+		// 	}
+		// ]
+		const team = Object.values(this.props.teamContactInfo)
 		const teamContactInfo = documents.TeamContactInfo(team)
 		this.openPdf(teamContactInfo)
 	}
@@ -172,7 +173,7 @@ class App extends React.Component<Props, State> {
 				</header>
 				<PracticeNameInput />
 				<button onClick={() => this.openDocument('SecurityManagementPolicy', this.props.practiceName, '2019-02-02')}>Open Security Management Policy</button>
-				<TeamContactInfo />
+				<TeamContactInfoTable />
 				<button onClick={this.openHardwareList}>Open Hardware Inventory</button>
 				<RiskAssessmentTable />
 				<button onClick={this.openRiskAssement}>Open Risk Assement</button>
@@ -186,7 +187,7 @@ class App extends React.Component<Props, State> {
 				<button onClick={() => this.openDocument('SecurityIncidentPolicy', 'Practice Name')}>Open Security Incident Policy</button>
 				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business Associate Agreement</button>
 				<button onClick={() => this.openDocument('SecurityEvaluation', 'Practice Name')}>Open Security Evaluation</button>
-				<button onClick={() => this.openTeamContactInfo()}>Open Team Contact Info</button>
+				<button onClick={() => this.openTeamContactInfoTable()}>Open Team Contact Info</button>
 				<button onClick={() => this.openEmergencyContacts()}>Open Emergency Contact List</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
@@ -200,7 +201,8 @@ class App extends React.Component<Props, State> {
 
 const MapStateToProps = (state) => ({
 	riskAssessment: state.riskAssessment,
-	practiceName: state.practiceName
+	practiceName: state.practiceName,
+	teamContactInfo: state.teamMemberContactInfo
 })
 
 export default connect(MapStateToProps)(App)
