@@ -1,5 +1,5 @@
 import styles from './styles'
-import { HardwareInventoryItem, TableRow } from '#/types';
+import { HardwareInventoryItem, TableRow } from '#/types'
 
 
 const HardwareInventory = (items: TableRow<HardwareInventoryItem>[]) => ({
@@ -52,11 +52,11 @@ const HardwareInventory = (items: TableRow<HardwareInventoryItem>[]) => ({
                         }, {
                             text: item.values.type,
                             style: 'tableItem'
-                        }, 
+                        },
                         // {
                         //     text: `${item.values.os}, ${item.values.storage}, ${item.values.ram}, ${item.values.cpu}`,
                         //     style: 'tableItem'
-                        // }, 
+                        // },
                         ``,
                         {
                             text: item.values.serialNo,
@@ -77,4 +77,4 @@ const HardwareInventory = (items: TableRow<HardwareInventoryItem>[]) => ({
 })
 
 export default HardwareInventory
-        
+

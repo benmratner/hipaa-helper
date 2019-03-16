@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 export type RiskAssessmentRow = {
 	active: boolean,
 	threatName: string,
@@ -62,3 +64,14 @@ export interface TableRow<T> {
 export interface TableRows<T> {
 	[id: string]: TableRow<T>
 }
+
+export type TableColumn = {
+	displayName: string,
+	key: string,
+	input: TableInput
+}
+
+export type TableInput = (
+	value: any,
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void
+) => JSX.Element

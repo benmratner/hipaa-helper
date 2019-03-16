@@ -1,8 +1,8 @@
 import * as React from 'react'
-import Table from '#/components/Table';
-import { TableRows, TeamMemberContactInfo } from '#/types';
-import { AddressInput } from '#/components';
-import { connect } from 'react-redux';
+import Table from '#/components/Table'
+import { TableColumn, TableRows, TeamMemberContactInfo } from '#/types'
+import { AddressInput } from '#/components'
+import { connect } from 'react-redux'
 import { updateTeamMemberContactInfoRow } from '#/actions/pages'
 
 type Props = {
@@ -13,32 +13,32 @@ type Props = {
 class TeamContactInfo extends React.Component<Props> {
 
     render() {
-        const columns = [
+        const columns: TableColumn[] = [
             {
                 displayName: 'Name',
                 key: 'name',
-                input: (onChange) => <input onChange={onChange}/>
+                input: (value, onChange) => <input value={value} onChange={onChange} />
             }, {
                 displayName: 'Address',
                 key: 'address',
-                input: (onChange) => <AddressInput onChange={onChange}/>
+                input: (value, onChange) => <AddressInput value={value} onChange={onChange}/>
             }, {
                 displayName: 'Home Phone',
                 key: 'homePhone',
-                input: (onChange) => <input onChange={onChange}/>
+                input: (value, onChange) => <input value={value} onChange={onChange} />
             }, {
                 displayName: 'Cell Phone',
                 key: 'cellPhone',
-                input: (onChange) => <input onChange={onChange}/>
+                input: (value, onChange) => <input value={value} onChange={onChange} />
             }, {
                 displayName: 'Spouse',
                 key: 'spouse',
-                input: (onChange) => <input onChange={onChange}/>
+                input: (value, onChange) => <input value={value} onChange={onChange} />
             }
         ]
         return (
-            <Table 
-                columns={columns} 
+            <Table
+                columns={columns}
                 saveRow={this.props.updateTeamMemberContactInfoRow}
                 rows={this.props.rows}
             />

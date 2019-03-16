@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react'
+import { connect } from 'react-redux'
 import { updatePracticeName } from '#/actions/pages'
 
 
@@ -11,10 +11,10 @@ interface Props {
 const PracticeNameInput = (props: Props) => {
     return (
         <div>
-            Practice Name: 
-            <input 
-                onChange={e => props.updatePracticeName(e.target.value)} 
-                value={props.practiceName} 
+            Practice Name:
+            <input
+                onChange={e => props.updatePracticeName(e.target.value)}
+                value={props.practiceName}
             />
         </div>
     )

@@ -1,5 +1,5 @@
 import styles from './styles'
-import { SoftwareInventoryRow } from '#/types';
+import { SoftwareInventoryRow } from '#/types'
 
 
 const SoftwareInventory = (items: SoftwareInventoryRow[]) => ({

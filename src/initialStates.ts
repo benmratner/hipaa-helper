@@ -1,4 +1,4 @@
-import { RiskAssessmentRow } from './types';
+import { RiskAssessmentRow } from './types'
 
 export const RiskAssessment: RiskAssessmentRow[] = [
     {

@@ -2,9 +2,9 @@ import * as React from 'react'
 import * as pdfMake from 'pdfmake/build/pdfmake'
 import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 import documents from '#/documents'
-import { PracticeNameInput, RiskAssessmentTable } from '#/components'
-import { HardwareInventoryTable, TeamContactInfoTable } from '#/pages'
-import logo from '#/images/hippo-logo.png'
+import { PracticeNameInput } from '#/components'
+import { HardwareInventoryTable, RiskAssessmentTable, TeamContactInfoTable } from '#/pages'
+import logo from '#/images/cclogo.png'
 
 import './App.css'
 import { connect } from 'react-redux'
@@ -168,12 +168,13 @@ class App extends React.Component<Props, State> {
 	}
 
 	render() {
+		const { practiceName } = this.props
 		return (
 
 			<div className="App">
 				<header className="App-header">
 					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">Welcome to HIPAA Helper</h1>
+					<h1 className="App-title">Welcome to Compliance Checklist</h1>
 				</header>
 				<PracticeNameInput />
 				<button onClick={() => this.openDocument('SecurityManagementPolicy', this.props.practiceName, '2019-02-02')}>Open Security Management Policy</button>
@@ -184,16 +185,31 @@ class App extends React.Component<Props, State> {
 				<RiskAssessmentTable />
 				<button onClick={this.openRiskAssement}>Open Risk Assement</button>
 				<button onClick={() => this.openDocument('EvaluationPolicy')}>Open Evaluation Policy</button>
-				<button onClick={() => this.openDocument('PasswordPolicy', 'Practice Name')}>Open Password Policy</button>
-				<button onClick={() => this.openDocument('DataControlPolicy', 'Practice Name')}>Open Data Control Policy</button>
-				<button onClick={() => this.openDocument('BackUpPlan', 'Practice Name')}>Open Data Back-up Plan</button>
-				<button onClick={() => this.openDocument('InternetAccessPolicy', 'Practice Name')}>Open Internet Access Policy</button>
-				<button onClick={() => this.openDocument('EncryptionPolicy', 'Practice Name')}>Open Encryption Policy</button>
-				<button onClick={() => this.openDocument('PatientAuthorization', 'Practice Name')}>Open Patient Authorization</button>
-				<button onClick={() => this.openDocument('SecurityIncidentPolicy', 'Practice Name')}>Open Security Incident Policy</button>
+				<button onClick={() => this.openDocument('PasswordPolicy', practiceName)}>Open Password Policy</button>
+				<button onClick={() => this.openDocument('DataControlPolicy', practiceName)}>Open Data Control Policy</button>
+				<button onClick={() => this.openDocument('BackUpPlan', practiceName)}>Open Data Back-up Plan</button>
+				<button onClick={() => this.openDocument('InternetAccessPolicy', practiceName)}>Open Internet Access Policy</button>
+				<button onClick={() => this.openDocument('EncryptionPolicy', practiceName)}>Open Encryption Policy</button>
+				<button onClick={() => this.openDocument('PatientAuthorization', practiceName)}>Open Patient Authorization</button>
+				<button onClick={() => this.openDocument('SecurityIncidentPolicy', practiceName)}>Open Security Incident Policy</button>
 				<button onClick={() => this.openBusinessAssociateAgreement()}>Open Business Associate Agreement</button>
-				<button onClick={() => this.openDocument('SecurityEvaluation', 'Practice Name')}>Open Security Evaluation</button>
+				<button onClick={() => this.openDocument('SecurityEvaluation', practiceName)}>Open Security Evaluation</button>
 				<button onClick={() => this.openEmergencyContacts()}>Open Emergency Contact List</button>
+				<button onClick={() => this.openDocument('SecurityIncidentReport', practiceName)}>Open Security Incident Report</button>
+				<button onClick={() => this.openDocument('TerminationChecklist', {
+					teamMemberName: 'Susan Harris',
+					terminationDate: new Date(),
+					position: 'Dentist',
+					initials: 'HXS',
+					dates: {
+						passwordTerminated: new Date(),
+						accountDeactivated: new Date(),
+						keysReturned: new Date(),
+						propertyReturned: new Date(),
+						phiReturned: new Date()
+					}
+
+				})}>Open Termination Checklist</button>
 				{this.state.iframeSrc &&
 					<div id='iframeContainer'>
 						<iframe src={this.state.iframeSrc} className='pdf-preview'/>

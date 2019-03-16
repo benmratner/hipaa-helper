@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Address } from '#/types'
 
 type Props = {
-    address?: Address,
+    value?: Address,
     onChange: Function
 }
 
@@ -20,9 +20,9 @@ class AddressInput extends React.Component<Props, State>{
     }
 
     componentDidMount() {
-        if (this.props.address){
+        if (this.props.value){
             this.setState({
-                ...this.props.address
+                ...this.props.value
             })
         }
     }
@@ -31,7 +31,7 @@ class AddressInput extends React.Component<Props, State>{
         this.setState({
             ...this.state,
             [field.target.name]: field.target.value
-        }, 
+        },
         () => this.props.onChange(this.state))
     }
 
@@ -40,38 +40,38 @@ class AddressInput extends React.Component<Props, State>{
         return (
             <div className={'d-flex flex-column'}>
                 Line 1:
-                <input 
-                    onChange={e => this.editField(e)} 
-                    name={'addressLine1'} 
+                <input
+                    onChange={e => this.editField(e)}
+                    name={'addressLine1'}
                     value={this.state.addressLine1}
                 />
                 Line 2:
-                <input 
-                    onChange={e => this.editField(e)} 
-                    name={'addressLine2'} 
+                <input
+                    onChange={e => this.editField(e)}
+                    name={'addressLine2'}
                     value={this.state.addressLine2}
                 />
                 City:
-                <input 
-                    onChange={e => this.editField(e)} 
-                    name={'city'} 
+                <input
+                    onChange={e => this.editField(e)}
+                    name={'city'}
                     value={this.state.city}
                 />
                 State:
-                <input 
-                    onChange={e => this.editField(e)} 
-                    name={'state'} 
+                <input
+                    onChange={e => this.editField(e)}
+                    name={'state'}
                     value={this.state.state}
                 />
                 Zip Code:
-                <input 
-                    onChange={e => this.editField(e)} 
-                    name={'zip'} 
+                <input
+                    onChange={e => this.editField(e)}
+                    name={'zip'}
                     value={this.state.zip}
                 />
-            </div>   
+            </div>
         )
     }
-} 
+}
 
 export default AddressInput

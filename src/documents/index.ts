@@ -23,6 +23,8 @@ import PrivacyViolationSanctions from './PrivacyViolationSanctions'
 import SecurityEvaluation from './SecurityEvaluation'
 import TeamContactInfo from './TeamContactInfo'
 import EmergencyContactList from './EmergencyContactList'
+import SecurityIncidentReport from './SecurityIncidentReport'
+import TerminationChecklist from './TerminationChecklist'
 
 const documents = {
 	SecurityManagementPolicy,
@@ -49,7 +51,9 @@ const documents = {
 	PrivacyViolationSanctions,
 	SecurityEvaluation,
 	TeamContactInfo,
-	EmergencyContactList
+	EmergencyContactList,
+	SecurityIncidentReport,
+	TerminationChecklist
 }
 
-export default documents;
+export default documents

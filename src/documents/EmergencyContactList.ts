@@ -1,6 +1,6 @@
 import styles from './styles'
-import { EmergencyContact } from '#/types';
-import { formatPhoneNumber } from '#/utils';
+import { EmergencyContact } from '#/types'
+import { formatPhoneNumber } from '#/utils'
 
 const EmergencyContactList = (contacts: EmergencyContact[]) => ({
     content: [
@@ -21,7 +21,7 @@ const EmergencyContactList = (contacts: EmergencyContact[]) => ({
                         text: `${contact.name}:`,
                         alignment: 'right',
                         marginRight: 10,
-                        marginBottom: 5 
+                        marginBottom: 5
                     },
                     {
                         width: '*',

@@ -1,6 +1,6 @@
 import styles from './styles'
-import { TableRow, TeamMemberContactInfo } from '#/types';
-import { addressToString, formatPhoneNumber } from '#/utils';
+import { TableRow, TeamMemberContactInfo } from '#/types'
+import { addressToString, formatPhoneNumber } from '#/utils'
 
 const TeamContactInfo = (team: TableRow<TeamMemberContactInfo>[]) => ({
     content: [

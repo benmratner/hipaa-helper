@@ -1,15 +1,10 @@
 import * as React from 'react'
-import { Table as ReactTable } from 'reactstrap'
+import { Button, Table as ReactTable } from 'reactstrap'
 import { generateUID } from '#/utils'
-import { TableRows } from '#/types'
-
+import { TableColumn, TableRows } from '#/types'
 
 type Props = {
-	columns: {
-		displayName: string,
-		key: string,
-		input: any
-	}[],
+	columns: TableColumn[],
 	saveRow: Function,
 	rows?: TableRows<any>
 }
@@ -38,6 +33,10 @@ class Table extends React.Component<Props, State> {
 		}
 	}
 
+	componentDidUpdate () {
+		// TODO: update rows in local state when rows in redux update
+	}
+
 	getEmptyRow = () => {
 		let row = {
 			values: {},
@@ -52,7 +51,7 @@ class Table extends React.Component<Props, State> {
 	addRow = () =>  {
 		this.setState({
 			rows: {
-				...this.state.rows, 
+				...this.state.rows,
 				[generateUID()]: this.getEmptyRow()
 			}
 		})
@@ -96,14 +95,19 @@ class Table extends React.Component<Props, State> {
 					{Object.keys(this.state.rows).map((rowKey, i) => (
 						<tr key={rowKey}>
 							{this.props.columns.map(col => (
-								<td>{col.input(val => this.editRow(rowKey, col.key, val))}</td>
+								<td>
+								{col.input(
+									this.state.rows[rowKey].values[col.key],
+									val => this.editRow(rowKey, col.key, val)
+								)}
+								</td>
 							))}
 							{
 								i === Object.keys(this.state.rows).length - 1
-									? <td onClick={this.addRow}>Add Row</td>
-									: <td onClick={() => this.deleteRow(rowKey)}>Delete Row</td>
+									? <td><Button onClick={this.addRow}>Add Row</Button></td>
+									: <td><Button onClick={() => this.deleteRow(rowKey)}>Delete Row</Button></td>
 							}
-							<td><a onClick={() => this.props.saveRow(this.state.rows[rowKey], rowKey)}>Save</a></td>	
+							<td><Button onClick={() => this.props.saveRow(this.state.rows[rowKey], rowKey)}>Save</Button></td>
 						</tr>
 					))}
 				</tbody>
@@ -113,4 +117,4 @@ class Table extends React.Component<Props, State> {
 
 }
 
-export default Table;
+export default Table

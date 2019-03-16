@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Button, Table } from 'reactstrap';
-import Select from 'react-select';
-import { connect } from 'react-redux';
+import * as React from 'react'
+import { Button, Table } from 'reactstrap'
+import Select from 'react-select'
+import { connect } from 'react-redux'
 import { updateRiskAssessment } from '#/actions/pages'
-import { RiskAssessmentRow } from '#/types';
+import { RiskAssessmentRow } from '#/types'
 
 interface Props {
 	riskAssessmentTable: RiskAssessmentRow[],
@@ -13,14 +13,14 @@ interface Props {
 class RiskAssessmentTable extends React.Component<Props> {
 
 	onValueChange = (index: number, valueName: string, newValue: boolean | number) => {
-		const { riskAssessmentTable } = this.props;
+		const { riskAssessmentTable } = this.props
 		const currRow = riskAssessmentTable[index]
-		let risk = currRow.risk;
+		let risk = currRow.risk
 		if (typeof newValue === 'number'){
 			if ((valueName  === 'likelihood' && currRow.impact)){
-				risk = newValue * currRow.impact;
+				risk = newValue * currRow.impact
 			} else if (valueName  === 'impact' && currRow.likelihood) {
-				risk = newValue * currRow.likelihood;
+				risk = newValue * currRow.likelihood
 			}
 		}
 		if (valueName === 'actionsTaken') {
@@ -30,12 +30,12 @@ class RiskAssessmentTable extends React.Component<Props> {
 			...riskAssessmentTable.slice(0, index),
 			{ ...riskAssessmentTable[index], [valueName]: newValue, risk },
 			...riskAssessmentTable.slice(index + 1)
-		]);
+		])
 	}
 
 	onActionChange = (rowIndex: number, actionIndex: number, newAction: {action?: number, date?: Date}) => {
-		const { riskAssessmentTable } = this.props;
-		let actions = riskAssessmentTable[rowIndex].actionsTaken;
+		const { riskAssessmentTable } = this.props
+		let actions = riskAssessmentTable[rowIndex].actionsTaken
 
 		this.props.updateRiskAssessment([
 			...riskAssessmentTable.slice(0, rowIndex),
@@ -73,7 +73,7 @@ class RiskAssessmentTable extends React.Component<Props> {
 					)}
 				</tbody>
 			</Table>
-		);
+		)
 	}
 }
 
